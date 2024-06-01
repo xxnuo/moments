@@ -13,8 +13,9 @@ jobs:
         id: version_step
         run: |
           echo "##[set-output name=version;]VERSION=${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=version_tag;]${{ github.repository_owner }}/moments:${GITHUB_REF#$"refs/tags/v"}"
-          echo "##[set-output name=latest_tag;]${{ github.repository_owner }}/moments:latest"        
+          echo "REPO_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
+          echo "##[set-output name=version_tag;]$REPO_OWNER/moments:${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=latest_tag;]$REPO_OWNER/moments:latest"        
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
